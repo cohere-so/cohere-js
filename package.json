@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/cohere-so/cohere-js/issues"
   },
-  "homepage": "https://github.com/cohere-so/cohere-js#readme",
+  "homepage": "https://cohere.so",
   "devDependencies": {
     "@rollup/plugin-typescript": "^5.0.2",
     "rollup": "^2.21.0",
