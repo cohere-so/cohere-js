@@ -1,0 +1,32 @@
+{
+  "name": "cohere-js",
+  "version": "1.0.0",
+  "description": "Cohere.so JS SDK",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cohere-so/cohere-js.git"
+  },
+  "author": "Yunyu Lin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cohere-so/cohere-js/issues"
+  },
+  "homepage": "https://github.com/cohere-so/cohere-js#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^5.0.2",
+    "rollup": "^2.21.0",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.6"
+  },
+  "files": [
+    "/es",
+    "/lib",
+    "/types"
+  ]
+}
