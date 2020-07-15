@@ -1,4 +1,4 @@
-const bridgedMethods = ["init", "identify"] as const;
+const bridgedMethods = ["init", "identify", "stop"] as const;
 
 type UserAttrs = {
   displayName?: string;
@@ -9,6 +9,7 @@ type UserAttrs = {
 type CohereExports = {
   init: (apiKey: string) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
+  stop: () => void;
 };
 
 type CohereModule = {
@@ -22,7 +23,7 @@ type CohereModule = {
 //  if script is not created
 const Cohere: CohereModule = (window.Cohere = []) as any;
 Cohere.invoked = true;
-Cohere.snippet = "0.1";
+Cohere.snippet = "0.2";
 Cohere.methods = bridgedMethods;
 Cohere.methods.forEach((method) => {
   Cohere[method] = (...args: any[]) => {
