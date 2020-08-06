@@ -1,3 +1,10 @@
+import hookInputSetter from './hookInputs'
+
+hookInputSetter(HTMLInputElement.prototype, "value")
+hookInputSetter(HTMLInputElement.prototype, "checked")
+hookInputSetter(HTMLTextAreaElement.prototype, "value")
+hookInputSetter(HTMLSelectElement.prototype, "value")
+
 const bridgedMethods = ["init", "identify", "stop"] as const;
 
 type UserAttrs = {
@@ -15,6 +22,7 @@ type CohereExports = {
 type CohereModule = {
   invoked: boolean;
   snippet: string;
+  valhook: boolean;
   methods: typeof bridgedMethods;
 } & CohereExports &
   unknown[];
@@ -24,6 +32,7 @@ type CohereModule = {
 const Cohere: CohereModule = (window.Cohere = []) as any;
 Cohere.invoked = true;
 Cohere.snippet = "0.2";
+Cohere.valhook = true;
 Cohere.methods = bridgedMethods;
 Cohere.methods.forEach((method) => {
   Cohere[method] = (...args: any[]) => {
