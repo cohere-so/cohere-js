@@ -31,7 +31,7 @@ type CohereModule = {
 //  if script is not created
 const Cohere: CohereModule = (window.Cohere = []) as any;
 Cohere.invoked = true;
-Cohere.snippet = "0.2";
+Cohere.snippet = "0.3";
 Cohere.valhook = true;
 Cohere.methods = bridgedMethods;
 Cohere.methods.forEach((method) => {
