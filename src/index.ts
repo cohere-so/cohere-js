@@ -1,9 +1,13 @@
-import hookInputSetter from './hookInputs'
+import hookInputSetter from "./hookInputs";
 
-hookInputSetter(HTMLInputElement.prototype, "value")
-hookInputSetter(HTMLInputElement.prototype, "checked")
-hookInputSetter(HTMLTextAreaElement.prototype, "value")
-hookInputSetter(HTMLSelectElement.prototype, "value")
+const isSSR = typeof window === "undefined";
+
+if (!isSSR) {
+  hookInputSetter(HTMLInputElement.prototype, "value");
+  hookInputSetter(HTMLInputElement.prototype, "checked");
+  hookInputSetter(HTMLTextAreaElement.prototype, "value");
+  hookInputSetter(HTMLSelectElement.prototype, "value");
+}
 
 const bridgedMethods = ["init", "identify", "stop", "showCode"] as const;
 
@@ -28,29 +32,39 @@ type CohereModule = {
 } & CohereExports &
   unknown[];
 
+const noop = () => {};
+const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
+  init: noop,
+  identify: noop,
+  stop: noop,
+  showCode: noop,
+};
+
 // Create cohere or pass in previous args to init/initialize
 //  if script is not created
-const Cohere: CohereModule = (window.Cohere = []) as any;
-Cohere.invoked = true;
-Cohere.snippet = "0.3";
-Cohere.valhook = true;
-Cohere.methods = bridgedMethods;
-Cohere.methods.forEach((method) => {
-  Cohere[method] = (...args: any[]) => {
-    args.unshift(method);
-    Cohere.push(args);
-  };
-});
+let Cohere: CohereModule = isSSR ? noopModule : ((window.Cohere = []) as any);
+if (!isSSR) {
+  Cohere.invoked = true;
+  Cohere.snippet = "0.3";
+  Cohere.valhook = true;
+  Cohere.methods = bridgedMethods;
+  Cohere.methods.forEach((method) => {
+    Cohere[method] = (...args: any[]) => {
+      args.unshift(method);
+      Cohere.push(args);
+    };
+  });
 
-// Create an async script element based on your key
-const script = document.createElement("script");
-script.type = "text/javascript";
-script.async = true;
-script.src = "https://static.cohere.so/main.js";
+  // Create an async script element based on your key
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = "https://static.cohere.so/main.js";
 
-// Insert our script before the first script element
-const first = document.getElementsByTagName("script")[0];
-first!.parentNode!.insertBefore(script, first);
+  // Insert our script before the first script element
+  const first = document.getElementsByTagName("script")[0];
+  first!.parentNode!.insertBefore(script, first);
+}
 
 const exportedModule: CohereExports = Cohere;
 export default exportedModule;
