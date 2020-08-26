@@ -5,7 +5,7 @@ hookInputSetter(HTMLInputElement.prototype, "checked")
 hookInputSetter(HTMLTextAreaElement.prototype, "value")
 hookInputSetter(HTMLSelectElement.prototype, "value")
 
-const bridgedMethods = ["init", "identify", "stop"] as const;
+const bridgedMethods = ["init", "identify", "stop", "showCode"] as const;
 
 type UserAttrs = {
   displayName?: string;
@@ -17,6 +17,7 @@ type CohereExports = {
   init: (apiKey: string) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
   stop: () => void;
+  showCode: () => void;
 };
 
 type CohereModule = {
@@ -29,7 +30,7 @@ type CohereModule = {
 
 // Create cohere or pass in previous args to init/initialize
 //  if script is not created
-const Cohere: CohereModule = (window.Cohere = []) as any;
+const Cohere: CohereModule = ((window as any).Cohere = []) as any;
 Cohere.invoked = true;
 Cohere.snippet = "0.3";
 Cohere.valhook = true;
