@@ -30,7 +30,7 @@ type CohereModule = {
 
 // Create cohere or pass in previous args to init/initialize
 //  if script is not created
-const Cohere: CohereModule = ((window as any).Cohere = []) as any;
+const Cohere: CohereModule = (window.Cohere = []) as any;
 Cohere.invoked = true;
 Cohere.snippet = "0.3";
 Cohere.valhook = true;
