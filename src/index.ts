@@ -45,7 +45,7 @@ const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
 let Cohere: CohereModule = isSSR ? noopModule : ((window.Cohere = []) as any);
 if (!isSSR) {
   Cohere.invoked = true;
-  Cohere.snippet = "0.3";
+  Cohere.snippet = "0.4";
   Cohere.valhook = true;
   Cohere.methods = bridgedMethods;
   Cohere.methods.forEach((method) => {
