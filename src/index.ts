@@ -63,7 +63,11 @@ if (!isSSR) {
 
   // Insert our script before the first script element
   const first = document.getElementsByTagName("script")[0];
-  first!.parentNode!.insertBefore(script, first);
+  if (first && first.parentNode) {
+    first.parentNode.insertBefore(script, first);
+  } else {
+    document.head.insertBefore(script, document.head.firstChild);
+  }
 }
 
 const exportedModule: CohereExports = Cohere;
