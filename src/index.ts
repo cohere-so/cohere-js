@@ -1,8 +1,9 @@
 import hookInputSetter from "./hookInputs";
 
-const isSSR = typeof window === "undefined";
+const disableLoad =
+  typeof window === "undefined" || (window.document as any).documentMode;
 
-if (!isSSR) {
+if (!disableLoad) {
   hookInputSetter(HTMLInputElement.prototype, "value");
   hookInputSetter(HTMLInputElement.prototype, "checked");
   hookInputSetter(HTMLTextAreaElement.prototype, "value");
@@ -43,8 +44,10 @@ const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
 
 // Create cohere or pass in previous args to init/initialize
 //  if script is not created
-let Cohere: CohereModule = isSSR ? noopModule : ((window.Cohere = []) as any);
-if (!isSSR) {
+let Cohere: CohereModule = disableLoad
+  ? noopModule
+  : ((window.Cohere = []) as any);
+if (!disableLoad) {
   Cohere.invoked = true;
   Cohere.snippet = "0.4";
   Cohere.valhook = true;
