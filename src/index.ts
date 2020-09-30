@@ -7,6 +7,7 @@ if (!isSSR) {
   hookInputSetter(HTMLInputElement.prototype, "checked");
   hookInputSetter(HTMLTextAreaElement.prototype, "value");
   hookInputSetter(HTMLSelectElement.prototype, "value");
+  hookInputSetter(HTMLSelectElement.prototype, "selectedIndex");
 }
 
 const bridgedMethods = ["init", "identify", "stop", "showCode"] as const;
@@ -65,8 +66,6 @@ if (!isSSR) {
   const first = document.getElementsByTagName("script")[0];
   if (first && first.parentNode) {
     first.parentNode.insertBefore(script, first);
-  } else {
-    document.head.insertBefore(script, document.head.firstChild);
   }
 }
 
