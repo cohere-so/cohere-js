@@ -1,7 +1,9 @@
 import hookInputSetter from "./hookInputs";
 
 const disableLoad =
-  typeof window === "undefined" || (window.document as any).documentMode;
+  typeof window === "undefined" ||
+  !window.document ||
+  (window.document as any).documentMode;
 
 if (!disableLoad) {
   hookInputSetter(HTMLInputElement.prototype, "value");
