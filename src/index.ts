@@ -13,7 +13,13 @@ if (!disableLoad) {
   hookInputSetter(HTMLSelectElement.prototype, "selectedIndex");
 }
 
-const bridgedMethods = ["init", "identify", "stop", "showCode"] as const;
+const bridgedMethods = [
+  "init",
+  "identify",
+  "stop",
+  "showCode",
+  "getSessionUrl",
+] as const;
 
 type UserAttrs = {
   displayName?: string;
