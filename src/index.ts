@@ -48,6 +48,7 @@ const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
   identify: noop,
   stop: noop,
   showCode: noop,
+  getSessionUrl: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
@@ -61,7 +62,7 @@ if (!disableLoad) {
   Cohere.valhook = true;
   Cohere.methods = bridgedMethods;
   Cohere.methods.forEach((method) => {
-    Cohere[method] = (...args: any[]) => {
+    Cohere[method as any] = (...args: any[]) => {
       args.unshift(method);
       Cohere.push(args);
     };
