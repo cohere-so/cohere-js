@@ -32,6 +32,7 @@ type CohereExports = {
   identify: (userId: string, attrs?: UserAttrs) => void;
   stop: () => void;
   showCode: () => void;
+  getSessionUrl: (callback: (sessionUrl: string) => void) => void;
 };
 
 type CohereModule = {
