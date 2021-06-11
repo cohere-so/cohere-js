@@ -31,6 +31,7 @@ type UserAttrs = {
 type InitOptions = {
   disableRecording?: boolean;
   segmentIntegration?: boolean;
+  childIframe?: boolean;
 };
 
 type CohereExports = {
