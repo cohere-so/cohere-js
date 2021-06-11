@@ -70,7 +70,7 @@ let Cohere: CohereModule = disableLoad
   : ((window.Cohere = []) as any);
 if (!disableLoad) {
   Cohere.invoked = true;
-  Cohere.snippet = "0.4";
+  Cohere.snippet = "0.5";
   Cohere.valhook = true;
   Cohere.methods = bridgedMethods;
   Cohere.hookSegment = hookSegment;
