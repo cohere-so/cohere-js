@@ -60,7 +60,7 @@ const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
 //  if script is not created
 let Cohere: CohereModule = disableLoad
   ? noopModule
-  : (((window as any).Cohere = []) as any);
+  : ((window.Cohere = []) as any);
 if (!disableLoad) {
   Cohere.invoked = true;
   Cohere.snippet = "0.4";
