@@ -11,7 +11,7 @@ const hookSegment = () => {
         const traits = typeof args[1] === "object" ? args[1] : {};
         // Rename name to displayName
         const { name: displayName, ...rest } = traits;
-        window.Cohere.track(userId, { displayName, ...rest });
+        window.Cohere.identify(userId, { displayName, ...rest });
       }
       origIdentify(...args);
     };
