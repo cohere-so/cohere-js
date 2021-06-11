@@ -27,8 +27,12 @@ type UserAttrs = {
   [k: string]: string | undefined;
 };
 
+type InitOptions = {
+  disableRecording?: boolean;
+};
+
 type CohereExports = {
-  init: (apiKey: string) => void;
+  init: (apiKey: string, options?: InitOptions) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
   stop: () => void;
   showCode: () => void;
