@@ -1,5 +1,8 @@
+let hooked = false;
+
 const hookSegment = () => {
-  if (window.analytics) {
+  if (window.analytics && !hooked) {
+    hooked = true;
     const origIdentify = window.analytics.identify.bind(window.analytics);
     window.analytics.identify = (...args: any[]) => {
       const userId = args[0];
