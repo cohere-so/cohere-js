@@ -1,4 +1,5 @@
 import hookInputSetter from "./hookInputs";
+import hookSegment from "./hookSegment";
 
 const disableLoad =
   typeof window === "undefined" ||
@@ -27,8 +28,14 @@ type UserAttrs = {
   [k: string]: string | undefined;
 };
 
+type InitOptions = {
+  disableRecording?: boolean;
+  segmentIntegration?: boolean;
+  childIframe?: boolean;
+};
+
 type CohereExports = {
-  init: (apiKey: string) => void;
+  init: (apiKey: string, options?: InitOptions) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
   stop: () => void;
   showCode: () => void;
@@ -40,12 +47,17 @@ type CohereModule = {
   snippet: string;
   valhook: boolean;
   methods: typeof bridgedMethods;
+  hookSegment: typeof hookSegment;
 } & CohereExports &
   unknown[];
 
 const noop = () => {};
-const noopModule: Record<typeof bridgedMethods[number], VoidFunction> = {
-  init: noop,
+const noopModule: CohereExports = {
+  init: (_, options) => {
+    if (options?.segmentIntegration) {
+      hookSegment();
+    }
+  },
   identify: noop,
   stop: noop,
   showCode: noop,
@@ -59,9 +71,10 @@ let Cohere: CohereModule = disableLoad
   : ((window.Cohere = []) as any);
 if (!disableLoad) {
   Cohere.invoked = true;
-  Cohere.snippet = "0.4";
+  Cohere.snippet = "0.5";
   Cohere.valhook = true;
   Cohere.methods = bridgedMethods;
+  Cohere.hookSegment = hookSegment;
   Cohere.methods.forEach((method) => {
     Cohere[method as any] = (...args: any[]) => {
       args.unshift(method);
