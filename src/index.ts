@@ -53,11 +53,7 @@ type CohereModule = {
 
 const noop = () => {};
 const noopModule: CohereExports = {
-  init: (_, options) => {
-    if (options?.segmentIntegration) {
-      hookSegment();
-    }
-  },
+  init: noop,
   identify: noop,
   stop: noop,
   showCode: noop,
@@ -71,12 +67,18 @@ let Cohere: CohereModule = disableLoad
   : ((window.Cohere = []) as any);
 if (!disableLoad) {
   Cohere.invoked = true;
-  Cohere.snippet = "0.5";
+  Cohere.snippet = "0.6";
   Cohere.valhook = true;
   Cohere.methods = bridgedMethods;
   Cohere.hookSegment = hookSegment;
   Cohere.methods.forEach((method) => {
-    Cohere[method as any] = (...args: any[]) => {
+    Cohere[method] = (...args: unknown[]) => {
+      if (method === "init") {
+        const options = args[1] as InitOptions | undefined;
+        if (options?.segmentIntegration) {
+          hookSegment();
+        }
+      }
       args.unshift(method);
       Cohere.push(args);
     };
