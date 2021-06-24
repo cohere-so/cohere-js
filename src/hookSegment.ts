@@ -5,7 +5,7 @@ const hookSegment = () => {
     hooked = true;
     const origIdentify = window.analytics.identify.bind(window.analytics);
     window.analytics.identify = (...args: unknown[]) => {
-      const userId = args[0] as string;
+      const userId = args[0];
       // Ignore anonymous users
       if (typeof userId === "string") {
         const traits =
