@@ -72,9 +72,9 @@ if (!disableLoad) {
   Cohere.methods = bridgedMethods;
   Cohere.hookSegment = hookSegment;
   Cohere.methods.forEach((method) => {
-    Cohere[method as any] = (...args: any[]) => {
+    Cohere[method] = (...args: unknown[]) => {
       if (method === "init") {
-        const options: InitOptions | undefined = args[1];
+        const options = args[1] as InitOptions | undefined;
         if (options?.segmentIntegration) {
           hookSegment();
         }
