@@ -40,6 +40,9 @@ type CohereExports = {
   stop: () => void;
   showCode: () => void;
   getSessionUrl: (callback: (sessionUrl: string) => void) => void;
+  makeCall: () => void;
+  addCallStatusListener: (cb?: any) => void;
+  removeCallStatusListener: (cb?: any) => void;
 };
 
 type CohereModule = {
@@ -58,6 +61,9 @@ const noopModule: CohereExports = {
   stop: noop,
   showCode: noop,
   getSessionUrl: noop,
+  makeCall: noop,
+  addCallStatusListener: noop,
+  removeCallStatusListener: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
@@ -88,7 +94,7 @@ if (!disableLoad) {
   const script = document.createElement("script");
   script.type = "text/javascript";
   script.async = true;
-  script.src = "https://static.cohere.so/main.js";
+  script.src = "https://static-staging.cohere.so/main.js";
 
   // Insert our script before the first script element
   const first = document.getElementsByTagName("script")[0];
