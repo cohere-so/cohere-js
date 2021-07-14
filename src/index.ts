@@ -40,6 +40,9 @@ type CohereExports = {
   stop: () => void;
   showCode: () => void;
   getSessionUrl: (callback: (sessionUrl: string) => void) => void;
+  makeCall: () => void;
+  addCallStatusListener: (cb?: any) => void;
+  removeCallStatusListener: (cb?: any) => void;
 };
 
 type CohereModule = {
@@ -58,6 +61,9 @@ const noopModule: CohereExports = {
   stop: noop,
   showCode: noop,
   getSessionUrl: noop,
+  makeCall: noop,
+  addCallStatusListener: noop,
+  removeCallStatusListener: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
