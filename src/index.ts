@@ -20,6 +20,9 @@ const bridgedMethods = [
   "stop",
   "showCode",
   "getSessionUrl",
+  "makeCall",
+  "addCallStatusListener",
+  "removeCallStatusListener",
 ] as const;
 
 type UserAttrs = {
