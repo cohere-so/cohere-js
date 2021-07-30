@@ -6,25 +6,6 @@ const disableLoad =
   !window.document ||
   (window.document as any).documentMode;
 
-if (!disableLoad) {
-  hookInputSetter(HTMLInputElement.prototype, "value");
-  hookInputSetter(HTMLInputElement.prototype, "checked");
-  hookInputSetter(HTMLTextAreaElement.prototype, "value");
-  hookInputSetter(HTMLSelectElement.prototype, "value");
-  hookInputSetter(HTMLSelectElement.prototype, "selectedIndex");
-}
-
-const bridgedMethods = [
-  "init",
-  "identify",
-  "stop",
-  "showCode",
-  "getSessionUrl",
-  "makeCall",
-  "addCallStatusListener",
-  "removeCallStatusListener",
-] as const;
-
 type UserAttrs = {
   displayName?: string;
   email?: string;
@@ -48,6 +29,17 @@ type CohereExports = {
   removeCallStatusListener: (cb?: any) => void;
 };
 
+const bridgedMethods: (keyof CohereExports)[] = [
+  "init",
+  "identify",
+  "stop",
+  "showCode",
+  "getSessionUrl",
+  "makeCall",
+  "addCallStatusListener",
+  "removeCallStatusListener",
+];
+
 type CohereModule = {
   invoked: boolean;
   snippet: string;
@@ -58,23 +50,23 @@ type CohereModule = {
   unknown[];
 
 const noop = () => {};
-const noopModule: CohereExports = {
-  init: noop,
-  identify: noop,
-  stop: noop,
-  showCode: noop,
-  getSessionUrl: noop,
-  makeCall: noop,
-  addCallStatusListener: noop,
-  removeCallStatusListener: noop,
-};
+const noopModule: CohereExports = Object.fromEntries(
+  bridgedMethods.map((method) => [[method], noop])
+);
 
 // Create cohere or pass in previous args to init/initialize
 //  if script is not created
 let Cohere: CohereModule = disableLoad
   ? noopModule
   : ((window.Cohere = []) as any);
+
 if (!disableLoad) {
+  hookInputSetter(HTMLInputElement.prototype, "value");
+  hookInputSetter(HTMLInputElement.prototype, "checked");
+  hookInputSetter(HTMLTextAreaElement.prototype, "value");
+  hookInputSetter(HTMLSelectElement.prototype, "value");
+  hookInputSetter(HTMLSelectElement.prototype, "selectedIndex");
+
   Cohere.invoked = true;
   Cohere.snippet = "0.6";
   Cohere.valhook = true;
