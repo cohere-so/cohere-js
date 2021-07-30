@@ -23,6 +23,7 @@ const bridgedMethods = [
   "makeCall",
   "addCallStatusListener",
   "removeCallStatusListener",
+  "widget",
 ] as const;
 
 type UserAttrs = {
@@ -46,6 +47,7 @@ type CohereExports = {
   makeCall: () => void;
   addCallStatusListener: (cb?: any) => void;
   removeCallStatusListener: (cb?: any) => void;
+  widget: (action: string) => void;
 };
 
 type CohereModule = {
@@ -67,6 +69,7 @@ const noopModule: CohereExports = {
   makeCall: noop,
   addCallStatusListener: noop,
   removeCallStatusListener: noop,
+  widget: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
