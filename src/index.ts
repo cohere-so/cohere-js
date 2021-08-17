@@ -24,6 +24,8 @@ const bridgedMethods = [
   "addCallStatusListener",
   "removeCallStatusListener",
   "widget",
+  "addSessionUrlListener",
+  "removeSessionUrlListener",
 ] as const;
 
 type UserAttrs = {
@@ -38,6 +40,8 @@ type InitOptions = {
   childIframe?: boolean;
 };
 
+type CallStateValue = "closed" | "dialing" | "inCall" | "missed" | "ended";
+
 type CohereExports = {
   init: (apiKey: string, options?: InitOptions) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
@@ -45,9 +49,15 @@ type CohereExports = {
   showCode: () => void;
   getSessionUrl: (callback: (sessionUrl: string) => void) => void;
   makeCall: () => void;
-  addCallStatusListener: (cb?: any) => void;
-  removeCallStatusListener: (cb?: any) => void;
+  addCallStatusListener: (
+    listener: (callState: CallStateValue) => void
+  ) => void;
+  removeCallStatusListener: (
+    listener: (callState: CallStateValue) => void
+  ) => void;
   widget: (action: string) => void;
+  addSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
+  removeSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
 };
 
 type CohereModule = {
@@ -70,6 +80,8 @@ const noopModule: CohereExports = {
   addCallStatusListener: noop,
   removeCallStatusListener: noop,
   widget: noop,
+  addSessionUrlListener: noop,
+  removeSessionUrlListener: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
