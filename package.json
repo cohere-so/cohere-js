@@ -1,6 +1,6 @@
 {
   "name": "cohere-js",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Cohere.so JS SDK",
   "main": "lib/index.js",
   "module": "es/index.js",
