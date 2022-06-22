@@ -31,7 +31,7 @@ const bridgedMethods = [
 type UserAttrs = {
   displayName?: string;
   email?: string;
-  [k: string]: string | undefined | null | number;
+  [k: string]: string | undefined | null | number | boolean;
 };
 
 type InitOptions = {
