@@ -31,13 +31,15 @@ const bridgedMethods = [
 type UserAttrs = {
   displayName?: string;
   email?: string;
-  [k: string]: string | undefined;
+  [k: string]: string | undefined | null | number;
 };
 
 type InitOptions = {
   disableRecording?: boolean;
   segmentIntegration?: boolean;
   childIframe?: boolean;
+  disableCobrowse?: boolean;
+  zIndex?: number;
 };
 
 type CallStateValue = "closed" | "dialing" | "inCall" | "missed" | "ended";
