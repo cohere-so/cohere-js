@@ -61,7 +61,13 @@ type CohereExports = {
   widget: (action: string) => void;
   addSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
   removeSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
-  triggerOverlayWorkflow: (workflowId: string) => void;
+  triggerOverlayWorkflow: ({
+    status,
+    workflowId,
+  }: {
+    status: boolean;
+    workflowId: string;
+  }) => void;
 };
 
 type CohereModule = {
