@@ -17,6 +17,7 @@ if (!disableLoad) {
 const bridgedMethods = [
   "init",
   "identify",
+  "logout",
   "stop",
   "showCode",
   "getSessionUrl",
@@ -24,6 +25,7 @@ const bridgedMethods = [
   "addCallStatusListener",
   "removeCallStatusListener",
   "widget",
+  "openChatWindow",
   "addSessionUrlListener",
   "removeSessionUrlListener",
   "triggerOverlayWorkflow",
@@ -48,6 +50,7 @@ type CallStateValue = "closed" | "dialing" | "inCall" | "missed" | "ended";
 type CohereExports = {
   init: (apiKey: string, options?: InitOptions) => void;
   identify: (userId: string, attrs?: UserAttrs) => void;
+  logout: () => void;
   stop: () => void;
   showCode: () => void;
   getSessionUrl: (callback: (sessionUrl: string) => void) => void;
@@ -59,6 +62,7 @@ type CohereExports = {
     listener: (callState: CallStateValue) => void
   ) => void;
   widget: (action: string) => void;
+  openChatWindow: () => void;
   addSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
   removeSessionUrlListener: (listener: (sessionUrl: string) => void) => void;
   triggerOverlayWorkflow: ({
@@ -83,6 +87,7 @@ const noop = () => {};
 const noopModule: CohereExports = {
   init: noop,
   identify: noop,
+  logout: noop,
   stop: noop,
   showCode: noop,
   getSessionUrl: noop,
@@ -90,6 +95,7 @@ const noopModule: CohereExports = {
   addCallStatusListener: noop,
   removeCallStatusListener: noop,
   widget: noop,
+  openChatWindow: noop,
   addSessionUrlListener: noop,
   removeSessionUrlListener: noop,
   triggerOverlayWorkflow: noop,
