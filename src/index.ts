@@ -30,6 +30,8 @@ const bridgedMethods = [
   "removeSessionUrlListener",
   "triggerOverlayWorkflow",
   "startChat",
+  "endChat",
+  "closeChatWindow",
 ] as const;
 
 type UserAttrs = {
@@ -74,6 +76,8 @@ type CohereExports = {
     workflowId: string;
   }) => void;
   startChat: (workflowId: string | undefined) => void;
+  endChat: () => void;
+  closeChatWindow: () => void;
 };
 
 type CohereModule = {
@@ -102,6 +106,8 @@ const noopModule: CohereExports = {
   removeSessionUrlListener: noop,
   triggerOverlayWorkflow: noop,
   startChat: noop,
+  endChat: noop,
+  closeChatWindow: noop,
 };
 
 // Create cohere or pass in previous args to init/initialize
